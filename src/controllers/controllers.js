@@ -1,5 +1,6 @@
 import {
   createContact,
+  deleteContact,
   getAllContacts,
   getContactById,
   updateContact,
@@ -42,7 +43,7 @@ export const createContactController = async (req, res) => {
 };
 
 export const patchContactController = async (req, res) => {
-  const id = res.params.contactId;
+  const id = req.params.contactId;
   const { body } = req;
   const contact = await updateContact(id, body);
 
@@ -53,18 +54,14 @@ export const patchContactController = async (req, res) => {
   });
 };
 
-// export const patchContactController = async (req, res, next) => {
-//   const { contactId } = res.params;
-//   const result = await updateContact(contactId, req.body);
+export const deleteContactController = async (req, res, next) => {
+  const { contactId } = req.params;
 
-//   if (!result) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
+  const contact = await deleteContact(contactId);
 
-//   res.json({
-//     status: 200,
-//     message: 'Successfully patched a contact!',
-//     data: result.contact,
-//   });
-// };
+  if (!contact) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
+  res.status(204).send();
+};
