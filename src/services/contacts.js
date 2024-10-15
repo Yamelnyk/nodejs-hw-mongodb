@@ -45,8 +45,11 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const updateContact = async (id, payload) => {
-  const contact = await ContactsCollection.findOneAndUpdate(id, payload);
+export const updateContact = async (contactId, payload, userId) => {
+  const contact = await ContactsCollection.findOneAndUpdate(
+    { _id: contactId, userId },
+    payload,
+  );
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
