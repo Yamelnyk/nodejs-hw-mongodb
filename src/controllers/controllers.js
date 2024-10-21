@@ -8,6 +8,7 @@ import {
 import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -60,14 +61,30 @@ export const createContactController = async (req, res) => {
   });
 };
 
-export const patchContactController = async (req, res) => {
-  const id = req.params.contactId;
-  const { body } = req;
-  const contact = await updateContact(id, body, req.user._id);
+export const patchContactController = async (req, res, next) => {
+  const { contactId } = req.params;
+  const photo = req.file;
+  // const contact = await updateContact(id, body, req.user._id);
+
+  let photoUrl;
+
+  if (photo) {
+    photoUrl = await saveFileToUploadDir(photo);
+  }
+
+  const contact = await updateContact(contactId, {
+    ...req.body,
+    photo: photoUrl,
+  });
+
+  if (!contact) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
 
   res.json({
     status: 200,
-    message: 'Successfully patched a contact!',
+    message: `Successfully patched a contact!`,
     data: contact,
   });
 };
