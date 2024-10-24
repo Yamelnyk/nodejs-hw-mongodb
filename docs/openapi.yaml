@@ -5,10 +5,10 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: <опис вашого додатку>
+  description: This is a documentation of contacts app.
 tags:
   - name: Contacts
-    description: This is a documentation of contacts app.
+    description: Operations about contacts.
 servers:
   - url: http://localhost:3000
   - url: https://ccontacts-app.onrender.com/
