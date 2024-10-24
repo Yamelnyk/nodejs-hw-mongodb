@@ -7,7 +7,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "<опис вашого додатку>"
+    "description": "This is a documentation of contacts app."
   },
   "servers": [
     {
@@ -20,7 +20,7 @@
   "tags": [
     {
       "name": "Contacts",
-      "description": "This is a documentation of contacts app."
+      "description": "Operations about contacts."
     }
   ],
   "paths": {
