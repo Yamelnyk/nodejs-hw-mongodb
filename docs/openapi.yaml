@@ -7,8 +7,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: <опис вашого додатку>
 tags:
-   - name: Contacts
-   description: This is a documentation of contacts app.
+  - name: Contacts
+    description: This is a documentation of contacts app.
 servers:
   - url: http://localhost:3000
   - url: https://ccontacts-app.onrender.com/
